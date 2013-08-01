@@ -1,6 +1,8 @@
 package com.example.trydb;
 
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,10 +13,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.dropbox.sync.android.DbxAccountManager;
-
-import com.dropbox.sync.android.DbxFile;
+import com.dropbox.sync.android.DbxFileInfo;
 import com.dropbox.sync.android.DbxFileSystem;
-import com.dropbox.sync.android.DbxPath;
 
 
 public class MainActivity extends Activity implements OnClickListener {
@@ -25,7 +25,9 @@ public class MainActivity extends Activity implements OnClickListener {
 	private Button bUpload;
 	private Button doStuff;
 	private int REQUEST_LINK_TO_DBX;
+	
 	DbxFileSystem dbxFs ;
+	DbxAccountManager dbxManager;
 	DropBox db;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +36,9 @@ public class MainActivity extends Activity implements OnClickListener {
 		initialize();
 		//mDbxAcctMgr = DbxAccountManager.getInstance(getApplicationContext(),"ut3grlqbuz2299s", "3c9pbszuaqhmvtr");
 		db=new DropBox(0,getApplicationContext(),MainActivity.this,"ut3grlqbuz2299s","3c9pbszuaqhmvtr");
-		if(db.connectToDropBox()==null)
-		{
-			Toast.makeText(MainActivity.this, "Could not Connect To DropBox Account", Toast.LENGTH_SHORT).show();
-		}
+		dbxManager=db.connectToDropBox();
+		
+		
 		
 	}
 
@@ -71,7 +72,17 @@ public class MainActivity extends Activity implements OnClickListener {
 			
 			
 		case R.id.bDoStuff:
-			db.writefile("asdasd.txt", "Hello FileSystem!!");
+		/*String a =db.readfile("testing.txt");
+		Toast.makeText(MainActivity.this, a, Toast.LENGTH_SHORT).show();
+		*/
+		//db.writefile("testing.txt", "line1 \n line 2 \n line 3");
+			//db.createFolder("Rohit/depth_1");
+			//db.createFolder("Rohit/depth_2");
+			//db.Delete("Rohit/*");
+			//db.MovePath("Rohit/depth_1", "moving_test/");
+			List<DbxFileInfo> abc=db.listPath("");
+			if(abc!=null)
+				Toast.makeText(MainActivity.this, "Not Null!!", Toast.LENGTH_SHORT).show();
 			break;
 
 		}
