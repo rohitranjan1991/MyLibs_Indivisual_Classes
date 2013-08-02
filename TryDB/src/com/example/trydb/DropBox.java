@@ -46,7 +46,7 @@ public class DropBox {
 		try {
 			mDbxAcctMgr = DbxAccountManager.getInstance(con, App_key,
 					App_Secret);
-			//mDbxAcctMgr.unlink();
+			mDbxAcctMgr.unlink();
 			
 			(mDbxAcctMgr).startLink(act, REQUEST_LINK_TO_DBX);
 		} catch (Exception e) {

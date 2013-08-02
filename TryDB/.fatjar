@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Fri Aug 02 18:50:44 GMT+05:30 2013
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=false
+onejar.checkbox=false
+jarname=/Users/ankitvyaseng85/Rohit/myGit/VMFF/VMFF/libs/TryDB_fat.jar
+manifest.mergeall=false
+manifest.mainclass=
+manifest.file=<createnew>
+jarname.isextern=true
+onejar.expand=
+excludes=<po|TryDB>~com/~example/~trydb/~MainActivity.class;<jar|android-support-v4.jar>;<jar|dropbox-sync-sdk-android.jar>;<jar|android.jar>
+includes=
