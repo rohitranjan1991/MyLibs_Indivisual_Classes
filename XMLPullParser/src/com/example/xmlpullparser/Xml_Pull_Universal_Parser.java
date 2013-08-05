@@ -16,6 +16,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import android.os.AsyncTask;
+import android.util.Log;
 import android.util.Xml;
 
 public class Xml_Pull_Universal_Parser extends
@@ -64,11 +65,22 @@ public class Xml_Pull_Universal_Parser extends
 			parser.setInput(is, null);
 			parser.next();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-
+			Log.e("Do in Backround Error", e.getLocalizedMessage());
 		}
 		return data;
+
+	}
+
+	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public void setData(String data) {
+		is = new ByteArrayInputStream(data.getBytes());
+		try {
+			parser.setInput(is, null);
+			parser.next();
+		} catch (Exception e) {
+			Log.e("Set Error", e.getLocalizedMessage());
+		}
 
 	}
 
@@ -112,9 +124,11 @@ public class Xml_Pull_Universal_Parser extends
 			}
 
 		} catch (XmlPullParserException e) {
-			e.printStackTrace();
+			Log.e("GetText Error", e.getLocalizedMessage());
+
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.e("GetText Error", e.getLocalizedMessage());
+
 		}
 
 		return text;
@@ -148,9 +162,11 @@ public class Xml_Pull_Universal_Parser extends
 			}
 
 		} catch (XmlPullParserException e) {
-			e.printStackTrace();
+			Log.e("getAttribute Error", e.getLocalizedMessage());
+
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.e("getAttribute Error", e.getLocalizedMessage());
+
 		}
 
 		return text;
@@ -218,20 +234,22 @@ public class Xml_Pull_Universal_Parser extends
 			}
 
 		} catch (XmlPullParserException e) {
-			e.printStackTrace();
+			Log.e("GetWhere Error", e.getLocalizedMessage());
+
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.e("GetWhere Error", e.getLocalizedMessage());
 		}
 
 		return null;
 	}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	int eventType;
 
 	public Xml_Class getTag(String tagName) {
 		Xml_Class xml = new Xml_Class();
-		
+
 		HashMap<String, String> attr = new HashMap<String, String>();
 		ArrayList<Xml_Class> tagList = new ArrayList<Xml_Class>();
 		try {
@@ -268,13 +286,14 @@ public class Xml_Pull_Universal_Parser extends
 
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Log.e("getTag Error", e.getLocalizedMessage());
+
 		}
 		return xml;
 
 	}
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	ArrayList<Xml_Class> tagValueList = new ArrayList<Xml_Class>();
 
@@ -293,42 +312,41 @@ public class Xml_Pull_Universal_Parser extends
 		return tagValueList;
 	}
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public Xml_Class getBlockWhere(String BlockTag, String whereTag,
 			String whereValue) {
-		Xml_Class xml; 
+		Xml_Class xml;
 		reset();
-		while((xml= getTag(BlockTag))!=null){
-		
-		getTagValueList(xml);
-		for(int i=0;i<tagValueList.size();i++)
-		{
-			if(tagValueList.get(i).getTagName().equalsIgnoreCase(whereTag) && tagValueList.get(i).getText().equalsIgnoreCase(whereValue))
-				return xml;
-		}
+		while ((xml = getTag(BlockTag)) != null) {
+
+			getTagValueList(xml);
+			for (int i = 0; i < tagValueList.size(); i++) {
+				if (tagValueList.get(i).getTagName().equalsIgnoreCase(whereTag)
+						&& tagValueList.get(i).getText()
+								.equalsIgnoreCase(whereValue))
+					return xml;
+			}
 		}
 		tagValueList.clear();
 		return null;
 
 	}
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-	
-	
-	public void reset()
-	{
+
+	// //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public void reset() {
 		try {
 			factory = XmlPullParserFactory.newInstance();
 			factory.setNamespaceAware(true);
 			parser = factory.newPullParser();
 			parser.setInput(is, null);
 			parser.next();
-		}  catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		} catch (Exception e) {
+			Log.e("reset Error", e.getLocalizedMessage());
+
 		}
-		
+
 	}
-	
-	
+
 }
